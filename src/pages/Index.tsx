@@ -1,12 +1,24 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { SolarSystemScene } from '@/components/solar-system/SolarSystemScene';
+import { TimeControls } from '@/components/ui/TimeControls';
+import { PlanetInfoPanel } from '@/components/ui/PlanetInfoPanel';
+import { SplashScreen } from '@/components/ui/SplashScreen';
+import { HUD } from '@/components/ui/HUD';
+import { useSimulationStore } from '@/store/simulationStore';
 
 const Index = () => {
+  const hasStarted = useSimulationStore((s) => s.hasStarted);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="relative w-screen h-screen overflow-hidden bg-background">
+      <SplashScreen />
+      {hasStarted && (
+        <>
+          <SolarSystemScene />
+          <HUD />
+          <TimeControls />
+          <PlanetInfoPanel />
+        </>
+      )}
     </div>
   );
 };
